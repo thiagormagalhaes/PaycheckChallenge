@@ -12,8 +12,25 @@ steps:
   inputs:
     version: '7.0.x'
 
-- script: dotnet --list-sdks
-  displayName: 'List pre-installed .NET versions'
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
+  inputs:
+    command: 'build'
+    configuration: $(buildConfiguration)
+  
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
+  inputs:
+    command: 'test'
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+    publishTestResults: true
+    projects: '**/*Tests/*.csproj'
+  
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage report'
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 
 # Publish projects to specified folder.
 - task: DotNetCoreCLI@2
