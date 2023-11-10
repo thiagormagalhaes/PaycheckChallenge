@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: 'DESKTOP-5V9OK9U'
+  name: default
 
 variables:
   buildConfiguration: 'Release'
