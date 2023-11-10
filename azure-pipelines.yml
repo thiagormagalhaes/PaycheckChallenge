@@ -13,13 +13,13 @@ steps:
     version: '7.0.x'
 
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet build'
+  displayName: 'Build project'
   inputs:
     command: 'build'
     configuration: $(buildConfiguration)
   
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet test'
+  displayName: 'Starting test execution'
   inputs:
     command: 'test'
     arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
@@ -34,7 +34,7 @@ steps:
 
 # Publish projects to specified folder.
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet publish'
+  displayName: 'Project publish'
   inputs:
     command: publish
     publishWebProjects: true
