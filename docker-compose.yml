@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  web_api:
+    image: web_api
+    container_name: web_api_application
+    ports:
+      - "5000:80"
+  sql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql_server2022
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "PaycheckChallenge#2023"
+      MSSQL_PID: Express

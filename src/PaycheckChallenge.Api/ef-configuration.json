@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=sql_server2022;Initial Catalog=Paycheck;User Id=sa;Password=PaycheckChallenge#2023;TrustServerCertificate=True"
+  }
+}
