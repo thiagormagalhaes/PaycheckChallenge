@@ -10,8 +10,7 @@ variables:
 steps:
 - task: UseDotNet@2
   inputs:
-    packageType: 'sdk'
-    version: '7.0'
+    version: '7.0.x'
 
 - script: dotnet --list-sdks
   displayName: 'List pre-installed .NET versions'
