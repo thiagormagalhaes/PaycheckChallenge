@@ -1,9 +1,7 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PaycheckChallenge.Api.Requests;
 using PaycheckChallenge.Api.Responses;
-using PaycheckChallenge.Domain.Entities;
 using PaycheckChallenge.Tests.Builders;
 using PaycheckChallenge.Tests.Integration.SetUp;
 using System.Text;
@@ -12,7 +10,11 @@ using Xunit;
 namespace PaycheckChallenge.Tests.Integration.Api.Controllers.v1;
 public class EmployeeControllerTests : AbstractIntegrationTests<BaseFixture>
 {
-    public EmployeeControllerTests(BaseFixture fixture) : base(fixture) { }
+    public EmployeeControllerTests(BaseFixture fixture) : base(fixture)
+    {
+        _fixture.Dispose();
+        _fixture = new BaseFixture();
+    }
 
     [Fact]
     public async Task Should_get_employee()

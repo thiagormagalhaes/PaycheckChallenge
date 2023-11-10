@@ -32,9 +32,12 @@ public class CreateEmployeeCommandHandlerTests
     {
         var employee = new EmployeeBuilder().Build();
 
+        _cpfValidator.IsValid(employee.Document)
+            .Returns(true);
+
         var command = BuildCreateEmployeeCommandValid(employee);
 
-        var result = await _commandHandler.Handle(command, new CancellationToken());
+        var result = await _commandHandler.Handle(command, CancellationToken.None);
 
         _notificationContext.DidNotReceive().AddNotification(Arg.Any<string>(), Arg.Any<string>());
         _notificationContext.DidNotReceive().AddNotifications(Arg.Any<ValidationResult>());
@@ -89,7 +92,7 @@ public class CreateEmployeeCommandHandlerTests
         _notificationContext.HasNotifications()
             .Returns(true);
 
-        var result = await _commandHandler.Handle(command, new CancellationToken());
+        var result = await _commandHandler.Handle(command, CancellationToken.None);
 
         _notificationContext.Received(1).AddNotifications(Arg.Any<ValidationResult>());
         _notificationContext.Received(1).HasNotifications();
@@ -110,7 +113,7 @@ public class CreateEmployeeCommandHandlerTests
         _notificationContext.HasNotifications()
             .Returns(true);
 
-        var result = await _commandHandler.Handle(command, new CancellationToken());
+        var result = await _commandHandler.Handle(command, CancellationToken.None);
 
         _notificationContext.Received().AddNotification("InvalidDocument", Resources.InvalidDocument);
         _notificationContext.Received(1).HasNotifications();
@@ -131,7 +134,7 @@ public class CreateEmployeeCommandHandlerTests
         _notificationContext.HasNotifications()
             .Returns(true);
 
-        var result = await _commandHandler.Handle(command, new CancellationToken());
+        var result = await _commandHandler.Handle(command, CancellationToken.None);
 
         _notificationContext.Received().AddNotification("DocumentIsAlreadyInUse", Resources.DocumentIsAlreadyInUse);
         _notificationContext.Received(1).HasNotifications();

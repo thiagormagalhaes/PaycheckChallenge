@@ -10,6 +10,7 @@ using PaycheckChallenge.Api.Responses;
 using PaycheckChallenge.Application.Commands.CreateEmployee;
 using PaycheckChallenge.Application.Queries.GetEmployeeById;
 using PaycheckChallenge.Application.Queries.GetPaycheck;
+using PaycheckChallenge.CrossCutting.Extensions;
 using PaycheckChallenge.Domain.Dto;
 using PaycheckChallenge.Domain.Entities;
 using PaycheckChallenge.Domain.Enums;
@@ -53,7 +54,7 @@ public class EmployeeControllerTests
         _mediator.Send(Arg.Any<CreateEmployeeCommand>())
             .Returns(employee);
 
-        var locationExpected = $"ap1/v1/employee/{employee.Id}";
+        var locationExpected = $"api/v1/employee/{employee.Id}";
 
         var result = await _controller.Create(request);
 
@@ -181,7 +182,7 @@ public class EmployeeControllerTests
         paycheckResponse.GrossSalary.Should().Be(paycheck.GrossSalary);
         paycheckResponse.TotalDiscount.Should().Be(paycheck.TotalDiscount);
         paycheckResponse.NetSalary.Should().Be(paycheck.NetSalary);
-        paycheckResponse.Transactions.First().Type.Should().Be(transactions.Type.ToString());
+        paycheckResponse.Transactions.First().Type.Should().Be(EnumExtensions.GetDescriptionFromEnumValue(TransactionType.Compensation));
         paycheckResponse.Transactions.First().Amount.Should().Be(transactions.Amount);
         paycheckResponse.Transactions.First().Description.Should().Be(transactions.Description);
     }

@@ -31,7 +31,7 @@ public class GetPaycheckQueryHandlerTests
 
         var request = new GetPaycheckQuery(employeeId);
 
-        var result = await _queryHandler.Handle(request, new CancellationToken());
+        var result = await _queryHandler.Handle(request, CancellationToken.None);
 
         result.Should().BeNull();
         await _employeeRepository.Received(1).GetById(employeeId);
@@ -50,7 +50,7 @@ public class GetPaycheckQueryHandlerTests
         _discountService.CalculateAllDiscount(employee)
             .Returns(new List<TransactionDto>());
 
-        var result = await _queryHandler.Handle(request, new CancellationToken());
+        var result = await _queryHandler.Handle(request, CancellationToken.None);
 
         result.Should().NotBeNull();
         await _employeeRepository.Received(1).GetById(employee.Id);

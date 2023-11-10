@@ -29,7 +29,7 @@ public class GetEmployeeByIdQueryHandlerTests
         _employeeRepository.GetById(employee.Id)
             .Returns(employee);
 
-        var result = await _queryHandler.Handle(query, new CancellationToken());
+        var result = await _queryHandler.Handle(query, CancellationToken.None);
 
         await _employeeRepository.Received(1).GetById(employee.Id);
 
