@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  name: 'DESKTOP-5V9OK9U'
 
 variables:
   buildConfiguration: 'Release'
